@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday Meri Jaan</title>
   <style>
     body {
       margin: 0;
-      overflow: hidden;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: radial-gradient(circle at center, #ff9a9e, #fad0c4);
+      font-family: 'Poppins', cursive;
       text-align: center;
-      color: white;
+      color: #fff;
+      background: url('background.jpg') center/cover no-repeat;
+      overflow: hidden;
     }
     #startScreen, #mainScreen {
       position: absolute;
@@ -19,10 +20,7 @@
       top: 0;
       left: 0;
     }
-    #mainScreen {
-      display: none;
-      background: url('background.jpg') center/cover no-repeat;
-    }
+    #mainScreen { display: none; }
     button {
       padding: 15px 30px;
       font-size: 22px;
@@ -31,57 +29,35 @@
       border-radius: 8px;
       color: white;
       cursor: pointer;
-      margin-top: 250px;
-    }
-    button:hover {
-      background-color: #ff3b2e;
+      margin-top: 40vh;
+      box-shadow: 0 0 20px #ff3b2e;
     }
     #message {
-      font-size: 28px;
-      margin-top: 40px;
+      font-size: 24px;
+      margin-top: 20px;
       animation: fadeIn 2s ease-in-out;
+      text-shadow: 0 0 10px #ffdde1;
     }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     #cake {
       display: none;
       margin: 30px auto;
       width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #ff9a9e;
     }
-    #showMore {
-      display: none;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ff6f61;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-    }
+    #showMore { display: none; margin-top: 20px; }
     #loveMessage {
       display: none;
       font-size: 36px;
-      color: #ffdde1;
+      color: #fff;
       margin-top: 20px;
+      text-shadow: 0 0 20px #ff6f61, 0 0 40px #ff3b2e;
       animation: glow 2s infinite alternate;
     }
     @keyframes glow {
       from {text-shadow: 0 0 10px #ff6f61;}
-      to {text-shadow: 0 0 20px #ff3b2e;}
-    }
-    .confetti, .firework {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: yellow;
-      animation: fall 4s infinite ease-in;
-    }
-    @keyframes fall {
-      0% {transform: translateY(0);}
-      100% {transform: translateY(100vh);}
+      to {text-shadow: 0 0 30px #ff3b2e;}
     }
   </style>
 </head>
@@ -94,11 +70,12 @@
     <audio id="song" src="happy-birthday.mp3"></audio>
     <div id="message">
       🎉 Happy Birthday Meri Jaan ❤️<br>
-      Aap Hamesha Khush Rho Avi Aap Jaise Smile Kr Rhi Ho<br>
+      Aap Hamesha Khush Rho<br>
+      Avi Aap Jaise Smile Kr Rhi Ho<br>
       Wese Hi Hamesha Smile Karti Rho<br>
-      Aap Meri Jaan Ho 🥰
+      Aap Meri Jaan Ho 🤩
     </div>
-    <img id="cake" src="cake.png" alt="Birthday Cake">
+    <img id="cake" src="cake.jpg" alt="Birthday Cake">
     <button id="showMore" onclick="showLove()">Show More</button>
     <div id="loveMessage">I Love You 😘❣💞</div>
   </div>
@@ -108,40 +85,13 @@
       document.getElementById("startScreen").style.display = "none";
       document.getElementById("mainScreen").style.display = "block";
       document.getElementById("song").play();
-      createConfetti();
-      createFireworks();
       setTimeout(() => {
         document.getElementById("cake").style.display = "block";
         document.getElementById("showMore").style.display = "inline-block";
       }, 4000);
     }
-
     function showLove() {
       document.getElementById("loveMessage").style.display = "block";
-    }
-
-    function createConfetti() {
-      for(let i=0; i<40; i++){
-        let confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random()*100 + "vw";
-        confetti.style.background = ["yellow","purple","orange","cyan","pink"][Math.floor(Math.random()*5)];
-        confetti.style.animationDuration = (2+Math.random()*3) + "s";
-        document.body.appendChild(confetti);
-      }
-    }
-
-    function createFireworks() {
-      for(let i=0; i<10; i++){
-        let firework = document.createElement("div");
-        firework.className = "firework";
-        firework.style.left = Math.random()*100 + "vw";
-        firework.style.top = Math.random()*50 + "vh";
-        firework.style.background = ["red","blue","green","yellow","white"][Math.floor(Math.random()*5)];
-        firework.style.boxShadow = "0 0 20px " + firework.style.background;
-        firework.style.animation = "fadeIn 1s ease-in-out infinite alternate";
-        document.body.appendChild(firework);
-      }
     }
   </script>
 </body>
