@@ -3,59 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday</title>
+<title>Happy Birthday Surprise</title>
 
 <style>
-body{
+*{
 margin:0;
 padding:0;
-text-align:center;
-font-family:Arial;
-overflow:hidden;
-color:white;
-background:linear-gradient(-45deg,#ff0080,#ff8c00,#40e0d0,#ff1493);
-background-size:400% 400%;
-animation:bg 8s infinite;
+box-sizing:border-box;
 }
 
-@keyframes bg{
+body{
+height:100vh;
+overflow:hidden;
+font-family:Arial, sans-serif;
+text-align:center;
+color:white;
+background:linear-gradient(135deg,#ff0080,#ff8c00,#ffd700,#ff1493);
+background-size:400% 400%;
+animation:bgmove 8s ease infinite;
+}
+
+@keyframes bgmove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
-#start,#main{
+.screen{
 position:absolute;
-width:100%;
-height:100%;
 top:0;
 left:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
-#main{display:none;}
+#main{
+display:none;
+padding:20px;
+}
 
 button{
 padding:15px 30px;
-font-size:24px;
+font-size:22px;
 border:none;
-border-radius:10px;
+border-radius:12px;
 background:#ff1493;
 color:white;
-margin-top:40vh;
 box-shadow:0 0 20px white;
+cursor:pointer;
 }
 
-#text{
-font-size:30px;
-margin-top:40px;
-padding:15px;
+h1{
+font-size:38px;
+margin-bottom:15px;
+text-shadow:0 0 15px white;
+}
+
+p{
+font-size:24px;
+line-height:1.6;
 text-shadow:0 0 10px white;
 }
 
 #cake{
-font-size:120px;
-display:none;
+font-size:130px;
 margin-top:20px;
+display:none;
+animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+from{transform:translateY(0);}
+to{transform:translateY(-15px);}
 }
 
 #love{
@@ -72,9 +95,9 @@ to{transform:scale(1.1);}
 
 .balloon{
 position:absolute;
-bottom:-50px;
+bottom:-80px;
 font-size:35px;
-animation:fly 7s linear infinite;
+animation:fly linear infinite;
 }
 
 @keyframes fly{
@@ -86,40 +109,43 @@ to{transform:translateY(-120vh);}
 
 <body>
 
-<div id="start">
-<button onclick="openGift()">🎁 Open Surprise</button>
+<div id="start" class="screen">
+<button onclick="startSurprise()">🎁 Open Surprise</button>
 </div>
 
-<div id="main">
+<div id="main" class="screen">
 
-<audio id="song" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+<audio id="song" controls autoplay loop style="margin-bottom:20px;">
+<source src="https://files.catbox.moe/6y6j7x.mp3" type="audio/mpeg">
 </audio>
 
-<div id="text">
-🎉 Happy Birthday Meri Jaan ❤️<br><br>
-Aap Hamesha Khush Raho 😊<br>
-Aapki Smile Hamesha Aise Hi Rahe ✨
-</div>
+<h1>🎉 Happy Birthday Meri Jaan ❤️</h1>
+
+<p>
+Aap Hamesha Khush Raho 😊 <br>
+Aapki Smile Hamesha Aise Hi Rahe ✨ <br>
+Aap Mere Liye Sabse Special Ho 💖
+</p>
 
 <div id="cake">🎂</div>
 
-<button id="more" onclick="showLove()" style="display:none;margin-top:20px;">Show More</button>
+<button id="moreBtn" onclick="showLove()" style="display:none; margin-top:20px;">Show More</button>
 
 <div id="love">I Love You 😘💞</div>
 
 </div>
 
 <script>
-function openGift(){
+function startSurprise(){
 document.getElementById("start").style.display="none";
-document.getElementById("main").style.display="block";
+document.getElementById("main").style.display="flex";
 
-document.getElementById("song").play();
+let music=document.getElementById("song");
+music.play();
 
-setTimeout(()=>{
+setTimeout(function(){
 document.getElementById("cake").style.display="block";
-document.getElementById("more").style.display="inline-block";
+document.getElementById("moreBtn").style.display="inline-block";
 },3000);
 
 for(let i=0;i<20;i++){
@@ -127,7 +153,8 @@ let b=document.createElement("div");
 b.className="balloon";
 b.innerHTML="🎈";
 b.style.left=Math.random()*100+"%";
-b.style.animationDuration=(4+Math.random()*4)+"s";
+b.style.animationDuration=(4+Math.random()*5)+"s";
+b.style.fontSize=(25+Math.random()*20)+"px";
 document.body.appendChild(b);
 }
 }
