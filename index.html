@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Surprise</title>
+<title>Birthday Surprise</title>
 
 <style>
 *{
@@ -12,43 +12,39 @@ padding:0;
 box-sizing:border-box;
 }
 
-body{
-height:100vh;
+html,body{
+width:100%;
+height:100%;
 overflow:hidden;
-font-family:Arial, sans-serif;
-text-align:center;
+font-family:Arial,sans-serif;
+}
+
+/* FIXED LOVE BACKGROUND */
+body{
+background:linear-gradient(135deg,#ff0080,#ff4da6,#ff66cc,#ff99dd);
+background-attachment:fixed;
+position:relative;
 color:white;
-
-/* LOVE BACKGROUND */
-background:
-linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
-url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80');
-
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
 }
 
-/* Floating hearts */
-.heart{
+/* extra overlay hearts */
+body::before{
+content:"💖 💕 💘 💝 💗 💞";
 position:absolute;
-bottom:-50px;
-font-size:28px;
-animation:fly 8s linear infinite;
-opacity:0.8;
+top:0;
+left:0;
+width:100%;
+height:100%;
+font-size:40px;
+opacity:0.08;
+display:flex;
+flex-wrap:wrap;
+justify-content:space-around;
+align-content:space-around;
+pointer-events:none;
 }
 
-@keyframes fly{
-from{
-transform:translateY(0) scale(1);
-opacity:1;
-}
-to{
-transform:translateY(-120vh) scale(1.5);
-opacity:0;
-}
-}
-
+/* screens */
 .screen{
 position:absolute;
 top:0;
@@ -60,6 +56,7 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 padding:20px;
+z-index:2;
 }
 
 #main{
@@ -68,30 +65,30 @@ display:none;
 
 button{
 padding:15px 30px;
-font-size:22px;
+font-size:24px;
 border:none;
 border-radius:12px;
 background:#ff1493;
 color:white;
 cursor:pointer;
-box-shadow:0 0 20px #ff69b4;
+box-shadow:0 0 20px rgba(255,255,255,.6);
 }
 
 h1{
-font-size:38px;
-text-shadow:0 0 15px #fff;
+font-size:36px;
+text-shadow:0 0 10px #fff;
 margin-bottom:15px;
 }
 
 p{
 font-size:24px;
 line-height:1.6;
-text-shadow:0 0 12px #000;
 font-weight:bold;
+text-shadow:0 0 8px #000;
 }
 
 #cake{
-font-size:130px;
+font-size:120px;
 display:none;
 margin-top:20px;
 animation:bounce 1s infinite alternate;
@@ -99,14 +96,14 @@ animation:bounce 1s infinite alternate;
 
 @keyframes bounce{
 from{transform:translateY(0);}
-to{transform:translateY(-15px);}
+to{transform:translateY(-12px);}
 }
 
 #love{
 display:none;
-font-size:42px;
+font-size:40px;
 margin-top:20px;
-text-shadow:0 0 20px #ff1493;
+text-shadow:0 0 15px #fff;
 animation:zoom 1s infinite alternate;
 }
 
@@ -114,32 +111,45 @@ animation:zoom 1s infinite alternate;
 from{transform:scale(1);}
 to{transform:scale(1.08);}
 }
+
+.float{
+position:absolute;
+bottom:-50px;
+font-size:30px;
+animation:up linear infinite;
+z-index:1;
+}
+
+@keyframes up{
+from{transform:translateY(0);}
+to{transform:translateY(-120vh);}
+}
 </style>
 </head>
 
 <body>
 
 <div id="start" class="screen">
-<button onclick="startSurprise()">🎁 Open Surprise</button>
+<button onclick="openGift()">🎁 Open Surprise</button>
 </div>
 
 <div id="main" class="screen">
 
-<audio id="song" controls autoplay loop style="margin-bottom:20px;">
+<audio id="song" controls autoplay loop style="margin-bottom:15px;">
 <source src="https://files.catbox.moe/6y6j7x.mp3" type="audio/mpeg">
 </audio>
 
 <h1>🎉 Happy Birthday Meri Jaan ❤️</h1>
 
 <p>
-Aap Hamesha Khush Raho 😊 <br>
-Aapki Smile Hamesha Aise Hi Rahe ✨ <br>
+Aap Hamesha Khush Raho 😊<br>
+Aapki Smile Hamesha Aise Hi Rahe ✨<br>
 Aap Mere Liye Sabse Special Ho 💖
 </p>
 
 <div id="cake">🎂</div>
 
-<button id="moreBtn" onclick="showLove()" style="display:none; margin-top:20px;">
+<button id="more" onclick="showLove()" style="display:none;margin-top:20px;">
 Show More
 </button>
 
@@ -148,26 +158,26 @@ Show More
 </div>
 
 <script>
-function startSurprise(){
+function openGift(){
 document.getElementById("start").style.display="none";
 document.getElementById("main").style.display="flex";
-
 document.getElementById("song").play();
 
 setTimeout(()=>{
 document.getElementById("cake").style.display="block";
-document.getElementById("moreBtn").style.display="inline-block";
-},3000);
+document.getElementById("more").style.display="inline-block";
+},2500);
 
-/* Floating hearts */
+/* floating emojis */
+let arr=["💖","💕","🎈","✨","💘"];
 for(let i=0;i<25;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"%";
-h.style.animationDuration=(5+Math.random()*5)+"s";
-h.style.fontSize=(20+Math.random()*20)+"px";
-document.body.appendChild(h);
+let x=document.createElement("div");
+x.className="float";
+x.innerHTML=arr[Math.floor(Math.random()*arr.length)];
+x.style.left=Math.random()*100+"%";
+x.style.animationDuration=(4+Math.random()*6)+"s";
+x.style.fontSize=(22+Math.random()*20)+"px";
+document.body.appendChild(x);
 }
 }
 
