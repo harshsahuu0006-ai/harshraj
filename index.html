@@ -18,15 +18,35 @@ overflow:hidden;
 font-family:Arial, sans-serif;
 text-align:center;
 color:white;
-background:linear-gradient(135deg,#ff0080,#ff8c00,#ffd700,#ff1493);
-background-size:400% 400%;
-animation:bgmove 8s ease infinite;
+
+/* LOVE BACKGROUND */
+background:
+linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
+url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80');
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 }
 
-@keyframes bgmove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+/* Floating hearts */
+.heart{
+position:absolute;
+bottom:-50px;
+font-size:28px;
+animation:fly 8s linear infinite;
+opacity:0.8;
+}
+
+@keyframes fly{
+from{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+to{
+transform:translateY(-120vh) scale(1.5);
+opacity:0;
+}
 }
 
 .screen{
@@ -39,11 +59,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+padding:20px;
 }
 
 #main{
 display:none;
-padding:20px;
 }
 
 button{
@@ -53,26 +73,27 @@ border:none;
 border-radius:12px;
 background:#ff1493;
 color:white;
-box-shadow:0 0 20px white;
 cursor:pointer;
+box-shadow:0 0 20px #ff69b4;
 }
 
 h1{
 font-size:38px;
+text-shadow:0 0 15px #fff;
 margin-bottom:15px;
-text-shadow:0 0 15px white;
 }
 
 p{
 font-size:24px;
 line-height:1.6;
-text-shadow:0 0 10px white;
+text-shadow:0 0 12px #000;
+font-weight:bold;
 }
 
 #cake{
 font-size:130px;
-margin-top:20px;
 display:none;
+margin-top:20px;
 animation:bounce 1s infinite alternate;
 }
 
@@ -83,26 +104,15 @@ to{transform:translateY(-15px);}
 
 #love{
 display:none;
-font-size:40px;
+font-size:42px;
 margin-top:20px;
+text-shadow:0 0 20px #ff1493;
 animation:zoom 1s infinite alternate;
 }
 
 @keyframes zoom{
 from{transform:scale(1);}
-to{transform:scale(1.1);}
-}
-
-.balloon{
-position:absolute;
-bottom:-80px;
-font-size:35px;
-animation:fly linear infinite;
-}
-
-@keyframes fly{
-from{transform:translateY(0);}
-to{transform:translateY(-120vh);}
+to{transform:scale(1.08);}
 }
 </style>
 </head>
@@ -129,7 +139,9 @@ Aap Mere Liye Sabse Special Ho 💖
 
 <div id="cake">🎂</div>
 
-<button id="moreBtn" onclick="showLove()" style="display:none; margin-top:20px;">Show More</button>
+<button id="moreBtn" onclick="showLove()" style="display:none; margin-top:20px;">
+Show More
+</button>
 
 <div id="love">I Love You 😘💞</div>
 
@@ -140,22 +152,22 @@ function startSurprise(){
 document.getElementById("start").style.display="none";
 document.getElementById("main").style.display="flex";
 
-let music=document.getElementById("song");
-music.play();
+document.getElementById("song").play();
 
-setTimeout(function(){
+setTimeout(()=>{
 document.getElementById("cake").style.display="block";
 document.getElementById("moreBtn").style.display="inline-block";
 },3000);
 
-for(let i=0;i<20;i++){
-let b=document.createElement("div");
-b.className="balloon";
-b.innerHTML="🎈";
-b.style.left=Math.random()*100+"%";
-b.style.animationDuration=(4+Math.random()*5)+"s";
-b.style.fontSize=(25+Math.random()*20)+"px";
-document.body.appendChild(b);
+/* Floating hearts */
+for(let i=0;i<25;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"%";
+h.style.animationDuration=(5+Math.random()*5)+"s";
+h.style.fontSize=(20+Math.random()*20)+"px";
+document.body.appendChild(h);
 }
 }
 
